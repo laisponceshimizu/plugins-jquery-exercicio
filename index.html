@@ -13,11 +13,6 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 </head>
-<!--
-
-    CONSULTEM O README PARA DICAS DE COMO SOLUCIONAR O EXERCÍCIO!
-
--->
 
 <body>
     <header>
@@ -60,20 +55,98 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
-    <script src="./js/jquery.mask.min.js"></script>
-    <script src="./js/jquery.validate.min.js"></script>
+    
+    <!-- Carregando jQuery primeiro -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <script src="./js/jquery.mask.min.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
     <script src="./js/messages_pt_BR.min.js"></script>
     <script src="./js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
     <script>
         $(document).ready(function () {
-            $('#carousel').slick({
+            // Configuração do carousel
+            $('#carousel-imagens').slick({
                 autoplay: true,
-                arrows: false
-            })
-        })
+                arrows: false,
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            });
+    
+            // Configuração das máscaras
+            $('#telefone').mask('(00) 00000-0000');
+            $('#cpf').mask('000.000.000-00');
+            $('#cep').mask('00000-000');
+    
+            // Configuração da validação do formulário
+            $('#form').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    telefone: {
+                        required: true,
+                        minlength: 15 // Ajustado para considerar a máscara
+                    },
+                    cpf: {
+                        required: true,
+                        minlength: 14 // Ajustado para considerar a máscara
+                    },
+                    endereco: {
+                        required: true
+                    },
+                    cep: {
+                        required: true,
+                        minlength: 9 // Ajustado para considerar a máscara
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Por favor, insira seu nome completo.",
+                        minlength: "O nome deve ter pelo menos 2 caracteres."
+                    },
+                    email: {
+                        required: "Por favor, insira seu e-mail.",
+                        email: "Por favor, insira um e-mail válido."
+                    },
+                    telefone: {
+                        required: "Por favor, insira seu telefone.",
+                        minlength: "O telefone deve ter 11 dígitos."
+                    },
+                    cpf: {
+                        required: "Por favor, insira seu CPF.",
+                        minlength: "O CPF deve ter 11 dígitos."
+                    },
+                    endereco: {
+                        required: "Por favor, insira seu endereço completo."
+                    },
+                    cep: {
+                        required: "Por favor, insira seu CEP.",
+                        minlength: "O CEP deve ter 8 dígitos."
+                    }
+                },
+                errorClass: "error",
+                errorElement: "span"
+            });
+    
+            // Evita envio do formulário se não for válido
+            $('#form').on('submit', function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 

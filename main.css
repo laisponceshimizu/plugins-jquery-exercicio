@@ -60,5 +60,8 @@ h2 {
 }
 
 .error {
-    color: red
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
 }
